@@ -8,6 +8,7 @@ import java.io.File;
 import java.util.Scanner;
 import java.io.*;
 import java.io.BufferedReader;
+import java.util.Random;
 /**
  *
  * @author Elias
@@ -21,6 +22,7 @@ public class Proyecto_cine {
         String nombreArchivo;
         nombreArchivo = "C:\\ProyectoCine\\clientes.txt";
         Archivos.crearArchivo(nombreArchivo);
+        DosMil_Clientes();
         nombreArchivo = "C:\\ProyectoCine\\catalogoPeliculas.txt";
         Archivos.crearArchivo(nombreArchivo);        
         nombreArchivo = "C:\\ProyectoCine\\catalogoEmpleados.txt";
@@ -35,15 +37,17 @@ public class Proyecto_cine {
         File Archivo_CatEmpleados = new File("C:\\ProyectoCine\\catalogoEmpleados.txt");
         File Archivo_CarCajas = new File("C:\\ProyectoCine\\catalogoCajas.txt");
         File Archivo_CatSalas = new File("C:\\ProyectoCine\\catalogoSalas.txt");
-        int caso, op;
-        Scanner ingreso = new Scanner(System.in);
 
+        Scanner ingreso = new Scanner(System.in);
+        boolean salir = false;
+        while(!salir){
         System.out.println("------Gestion de Cine------");
         System.out.println("1. Administracion ");
         System.out.println("2. Ventas ");
+        System.out.println("3. Salir ");
         System.out.println("Ingresar Opcion: ");
-        caso = ingreso.nextInt();
-        switch(caso)
+        int OP_Cine = ingreso.nextInt();
+        switch(OP_Cine)
         {
             case 1:
                 for (int i = 0; i < 15; ++i) System.out.println();
@@ -52,8 +56,9 @@ public class Proyecto_cine {
                 System.out.println("2. Gestion de Peliculas ");
                 System.out.println("3. Gestion de Empleados (Agregar o eliminar empleado)");
                 System.out.println("4. Reportes de sistema");
-                op = ingreso.nextInt();
-                switch(op){
+                System.out.println("5. Volver a menu principal");
+                int OP_Administrador = ingreso.nextInt();
+                switch(OP_Administrador){
                     case 1:
                         for (int i = 0; i < 15; ++i) System.out.println();
                         System.out.println("------Gestion de Salas------");
@@ -61,8 +66,19 @@ public class Proyecto_cine {
                     break;
                     case 2:
                         for (int i = 0; i < 15; ++i) System.out.println();
-                        System.out.println("2. Gestion de Peliculas ");
-                        System.out.println("Las peliculas en cartelera son las siguientes: ");
+                        System.out.println("------Gestion de Peliculas------");
+                        System.out.println("1. Agregar pelicula ");
+                        System.out.println("2. Eliminar pelicula ");
+                        System.out.println("3. Peliculas actuales ");
+                        System.out.println("5. Volver a menu principal");
+                        int OP_Peliculas = ingreso.nextInt();
+                        switch(OP_Peliculas){
+                            case 1:
+                                break;
+                            case 2:
+                                break;
+                            case 3:
+                                System.out.println("Las peliculas en cartelera son las siguientes: ");
                         System.out.println("Codigo      Nombre ");
                         String linea;
 
@@ -83,6 +99,8 @@ public class Proyecto_cine {
                         } catch(Exception e){
                         
                         }
+                                break;
+                        }
 
                         break;
                     case 3:
@@ -94,17 +112,58 @@ public class Proyecto_cine {
                         System.out.println("2. Gestion de Empleados (Agregar o eliminar empleado)");
                         System.out.println("3. Planilla de empleados");
                         System.out.println("4. Reporte de ventas por pelicula");// cuanto ha recaudado cada una, total de tiquetes por película y una distribución de porcentajes de clientes por genero.
+                        System.out.println("5. Volver a menu principal");
                         break;
+
                     }
                     break;
             case 2:
             for (int i = 0; i < 15; ++i) System.out.println();
-            System.out.println("------Gestion Ventas------");
-            System.out.println("1. Tickets");
-            System.out.println("2. Membresia");  
-            System.out.println("2. Paquetes");
+                System.out.println("------Gestion Ventas------");
+                System.out.println("1. Tickets");
+                System.out.println("2. Membresia");  
+                System.out.println("2. Paquetes");
+                System.out.println("5. Volver a menu principal");
             break;
+            case 3:
+                System.exit(0);
+                break;
+            case 5:
+                salir = true;
+            break;
+            default:
+                System.out.println("Solo números entre 1 y 3");
             }
+                    
+        }
+    }
+    
+    //Funcion para crear los 2000 clientes en el txt
+    public static void DosMil_Clientes(){
+        int edad = 0;
+        String sexo, texto;
+        boolean embarazo;
+        String nombreArchivo = "C:\\ProyectoCine\\clientes.txt";
+        Random digito = new Random();
+        
+        for(int i=0; i<100; i++){
+            int N = digito.nextInt(83);
+            edad=N;
+            if(i%2==0){
+                sexo ="Masculino";
+            } else {sexo ="Femenino";}
+            if(sexo=="Femenino"){
+                if(edad>18 && edad<47 && edad%2!=0){
+                    embarazo=true;
+                } else{
+                    embarazo=false;
+                }
+            } else {
+                embarazo = false;
+            }
+            texto=edad+" "+sexo+" "+embarazo;
+            Archivos.EscribirArchivo(nombreArchivo,texto);
+        }
     }
     
 }
