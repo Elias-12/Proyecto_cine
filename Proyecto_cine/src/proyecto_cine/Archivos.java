@@ -9,6 +9,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
@@ -21,7 +23,6 @@ public class Archivos {
         try {
             PrintWriter output = new PrintWriter(file);
             output.close();
-            System.out.println("Archivo Creado Exitosamente");
         } catch (FileNotFoundException ex) {
             ex.printStackTrace(System.out);
         }
@@ -42,5 +43,18 @@ public class Archivos {
         }
             return texto;
         }
+                
+        public static void EscribirArchivo(String nombreArchivo, String texto) {
+        File file = new File(nombreArchivo);
+        try{
+            PrintWriter output = new PrintWriter(new FileWriter(file, true));
+            output.println(texto);
+            output.close();
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace(System.out);
+        } catch (IOException ex) {
+            ex.printStackTrace(System.out);
+        }
+    }
     
 }
