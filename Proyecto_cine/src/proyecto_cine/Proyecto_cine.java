@@ -24,7 +24,8 @@ public class Proyecto_cine {
         Archivos.crearArchivo(nombreArchivo);
         DosMil_Clientes();
         nombreArchivo = "C:\\ProyectoCine\\catalogoPeliculas.txt";
-        Archivos.crearArchivo(nombreArchivo);        
+        Archivos.crearArchivo(nombreArchivo);  
+        CrearPeliculas();
         nombreArchivo = "C:\\ProyectoCine\\catalogoEmpleados.txt";
         Archivos.crearArchivo(nombreArchivo);        
         nombreArchivo = "C:\\ProyectoCine\\catalogoCajas.txt";
@@ -33,7 +34,7 @@ public class Proyecto_cine {
         Archivos.crearArchivo(nombreArchivo);  
         
         File Archivo_Clientes = new File("C:\\ProyectoCine\\clientes.txt");
-        File Archivo_CatPeliculas = new File("C:\\ProyectoCine\\catalogoPeliculas.txt.txt");
+//        File Archivo_CatPeliculas = new File("C:\\ProyectoCine\\catalogoPeliculas.txt.txt");
         File Archivo_CatEmpleados = new File("C:\\ProyectoCine\\catalogoEmpleados.txt");
         File Archivo_CarCajas = new File("C:\\ProyectoCine\\catalogoCajas.txt");
         File Archivo_CatSalas = new File("C:\\ProyectoCine\\catalogoSalas.txt");
@@ -69,38 +70,35 @@ public class Proyecto_cine {
                         System.out.println("------Gestion de Peliculas------");
                         System.out.println("1. Agregar pelicula ");
                         System.out.println("2. Eliminar pelicula ");
-                        System.out.println("3. Peliculas actuales ");
                         System.out.println("5. Volver a menu principal");
                         int OP_Peliculas = ingreso.nextInt();
                         switch(OP_Peliculas){
                             case 1:
-                                break;
+                                System.out.println("Las peliculas en cartelera son las siguientes: ");
+                                System.out.println("Codigo      Nombre ");
+                                String linea;
+
+                                try{
+                                        FileReader fr = new FileReader("C:\\ProyectoCine\\catalogoPeliculas.txt");
+                                        BufferedReader br = new BufferedReader(fr);
+                                        String temp = Archivos.LeerArchivo("C:\\ProyectoCine\\catalogoPeliculas.txt");
+                                        while((linea = br.readLine()) != null){
+                                        String [] parts = linea.split(" ");
+                                        String part1 = parts[0];
+                                        String part2 = parts[1];
+                                        String part3 = parts[2];
+                                        String part4 = parts[3];
+                                        String part5 = parts[4];
+                                        System.out.println("   "+part1+"   "+part2);
+                                        } 
+
+                                } catch(Exception e){
+
+                                }
+                                        break;
                             case 2:
                                 break;
-                            case 3:
-                                System.out.println("Las peliculas en cartelera son las siguientes: ");
-                        System.out.println("Codigo      Nombre ");
-                        String linea;
-
-                        try{
-                                FileReader fr = new FileReader("C:\\ProyectoCine\\catalogoPeliculas.txt");
-                                BufferedReader br = new BufferedReader(fr);
-                                String temp = Archivos.LeerArchivo("C:\\ProyectoCine\\catalogoPeliculas.txt");
-                                while((linea = br.readLine()) != null){
-                                String [] parts = linea.split(" ");
-                                String part1 = parts[0];
-                                String part2 = parts[1];
-                                String part3 = parts[2];
-                                String part4 = parts[3];
-                                String part5 = parts[4];
-                                System.out.println(part1+"        "+part2);
-                                } 
-
-                        } catch(Exception e){
-                        
-                        }
-                                break;
-                        }
+                                }
 
                         break;
                     case 3:
@@ -164,6 +162,20 @@ public class Proyecto_cine {
             texto=edad+" "+sexo+" "+embarazo;
             Archivos.EscribirArchivo(nombreArchivo,texto);
         }
+    }
+    public static void CrearPeliculas(){
+        String texto="";
+        String nombreArchivo = "C:\\ProyectoCine\\catalogoPeliculas.txt";
+        texto="P1 Avatar C 1500 Disponible 1";
+        Archivos.EscribirArchivo(nombreArchivo,texto);
+        texto="P2 Hunger_Games C 2700 Disponible 2";
+        Archivos.EscribirArchivo(nombreArchivo,texto);
+        texto="P3 1971 C 7000 Disponible 0";
+        Archivos.EscribirArchivo(nombreArchivo,texto);
+        texto="P4 Titanic C 300 Disponible 0";
+        Archivos.EscribirArchivo(nombreArchivo,texto);
+        
+        
     }
     
 }
