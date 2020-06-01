@@ -61,10 +61,27 @@ public class Proyecto_cine {
                 int OP_Administrador = ingreso.nextInt();
                 switch(OP_Administrador){
                     case 1:
-                        for (int i = 0; i < 15; ++i) System.out.println();
+                        String info=null;
+                        
+                        for (int i = 1; i < 9; ++i){ System.out.println();
+                        
                         System.out.println("------Gestion de Salas------");
-
-                    break;
+                        System.out.println("Sala "+i);
+                        System.out.println("Ingrese capacidad sala ");
+                        info=ingreso.next();
+                        System.out.println("Ingrese horario 1 ");
+                        info=info+" "+ingreso.next();
+                        System.out.println("Ingrese horario 2 ");
+                        info=info+" "+ingreso.next();
+                        System.out.println("Ingrese precio 2D");
+                        info=info+" "+ingreso.next();
+                        System.out.println("Ingrese precio 3D");
+                        info=info+" "+ingreso.next();
+                        System.out.println("Ingrese precio 4D");
+                        info=info+" "+ingreso.next();
+                        Archivos.EscribirArchivo("C:\\ProyectoCine\\catalogoSalas.txt", info);
+                        }
+                        break;
                     case 2:
                         for (int i = 0; i < 15; ++i) System.out.println();
                         System.out.println("------Gestion de Peliculas------");
