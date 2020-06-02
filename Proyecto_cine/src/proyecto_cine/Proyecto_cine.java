@@ -9,6 +9,8 @@ import java.util.Scanner;
 import java.io.*;
 import java.io.BufferedReader;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author Elias
@@ -18,7 +20,15 @@ public class Proyecto_cine {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        File archivo = new File("C:\\ProyectoCine");
+if (!archivo.exists()) {
+    System.out.println("Repositorio C:\\ProyectoCine no existe!!");
+    
+}
+
+
+
         String nombreArchivo;
         nombreArchivo = "C:\\ProyectoCine\\clientes.txt";
         Archivos.crearArchivo(nombreArchivo);
@@ -41,6 +51,8 @@ public class Proyecto_cine {
 
         Scanner ingreso = new Scanner(System.in);
         boolean salir = false;
+       
+      
         while(!salir){
         System.out.println("------Gestion de Cine------");
         System.out.println("1. Administracion ");
@@ -48,6 +60,7 @@ public class Proyecto_cine {
         System.out.println("3. Salir ");
         System.out.println("Ingresar Opcion: ");
         int OP_Cine = ingreso.nextInt();
+        
         switch(OP_Cine)
         {
             case 1:
@@ -63,8 +76,7 @@ public class Proyecto_cine {
                     case 1:
                         String info=null;
                         
-                        for (int i = 1; i < 9; ++i){ System.out.println();
-                        
+                        for (int i = 1; i < 9; ++i){                        
                         System.out.println("------Gestion de Salas------");
                         System.out.println("Sala "+i);
                         System.out.println("Ingrese capacidad sala ");
@@ -195,4 +207,7 @@ public class Proyecto_cine {
         
     }
     
+  
+        
+ 
 }
