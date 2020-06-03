@@ -95,41 +95,83 @@ if (!archivo.exists()) {
                         }
                         break;
                     case 2:
+                        System.out.println("Seleccionar dia de la semana");
+                        System.out.println("1. Lunes");
+                        System.out.println("2. Martes");
+                        System.out.println("3. Miercoles");
+                        System.out.println("4. Jueves");
+                        System.out.println("5. Viernes");
+                        System.out.println("6. Sabado");
+                        System.out.println("7. Domingo");
+                        int dia = ingreso.nextInt();
+                                if(dia==3){
+                                    ActualizarSistema();
+                                } 
+                        String linea, nuevoNombre="", nuevaCategoria="", nuevaP="";
+                        FileReader ar;
+                        int suma = 0;
                         for (int i = 0; i < 15; ++i) System.out.println();
                         System.out.println("------Gestion de Peliculas------");
-                        System.out.println("1. Agregar pelicula ");
-                        System.out.println("2. Eliminar pelicula ");
+                        System.out.println("1. Ver Cartelera completa ");
+                        System.out.println("2. Agregar pelicula ");
                         System.out.println("5. Volver a menu principal");
                         int OP_Peliculas = ingreso.nextInt();
                         switch(OP_Peliculas){
                             case 1:
+                                    try {
+                                        ar = new FileReader("C:\\ProyectoCine\\catalogoPeliculas.txt");
+                                        BufferedReader br = new BufferedReader(ar);
+                                        String temp = Archivos.LeerArchivo("C:\\ProyectoCine\\catalogoPeliculas.txt");
+                                        while((linea = br.readLine()) != null){
+                                        String [] parts = linea.split(" ");
+                                        String part1 = parts[0];
+                                        int temp_part1 = Integer.parseInt(part1);
+                                         suma = temp_part1+1;
+                                        String part2 = parts[1];
+                                        System.out.println(suma+"   "+part1+"   "+part2);
+                                        }
+                                    } catch (FileNotFoundException ex) {
+                                        Logger.getLogger(Proyecto_cine.class.getName()).log(Level.SEVERE, null, ex);
+                                    }                                    
+                                break;  
+                            case 2:
                                 System.out.println("Las peliculas en cartelera son las siguientes: ");
                                 System.out.println("Codigo      Nombre ");
-                                String linea;
+                                int h =1;
+                                int nuevoCodigo=0;
 
-                                try{
+                                
+                                                                try{
                                         FileReader fr = new FileReader("C:\\ProyectoCine\\catalogoPeliculas.txt");
                                         BufferedReader br = new BufferedReader(fr);
                                         String temp = Archivos.LeerArchivo("C:\\ProyectoCine\\catalogoPeliculas.txt");
                                         while((linea = br.readLine()) != null){
                                         String [] parts = linea.split(" ");
                                         String part1 = parts[0];
+                                        int temp_part1 = Integer.parseInt(part1);
+                                         suma = temp_part1+1;
                                         String part2 = parts[1];
-                                        String part3 = parts[2];
-                                        String part4 = parts[3];
-                                        String part5 = parts[4];
-                                        System.out.println("   "+part1+"   "+part2);
-                                        } 
-
+                                        System.out.println(suma+"   "+part1+"   "+part2);
+                                        }
+                                        System.out.println("Ingrese nombre de pelicula sin espacios: ");
+                                        nuevoNombre = ingreso.next();
+                                        System.out.println("Ingrese categoria de pelicula 'Ejemplo: 'C'': ");
+                                        nuevaCategoria = ingreso.next();
+                                        
+                                        nuevoCodigo= suma+h;
+                                        String ide = "C:\\ProyectoCine\\catalogoPeliculas.txt";
+                                        nuevaP = (nuevoCodigo+" "+nuevoNombre+" "+nuevaCategoria+" "+"0 Disponible 1");
+                                        System.out.println(nuevaP);
+                                        Archivos.EscribirArchivo(ide,nuevaP);
+                                        System.out.println("Se guardo de manera exitosa");
+                                        System.out.println("------------------------");
                                 } catch(Exception e){
 
+                                
                                 }
-                                        break;
-                            case 2:
+				   
                                 break;
                                 }
-
-                        break;
                     case 3:
                         break;
                     case 4:
@@ -192,6 +234,7 @@ if (!archivo.exists()) {
             Archivos.EscribirArchivo(nombreArchivo,texto);
         }
     }
+    //Funcion para crear peliculas iniciales
     public static void CrearPeliculas(){
         String texto="";
         String nombreArchivo = "C:\\ProyectoCine\\catalogoPeliculas.txt";
@@ -203,8 +246,46 @@ if (!archivo.exists()) {
         Archivos.EscribirArchivo(nombreArchivo,texto);
         texto="P4 Titanic C 300 Disponible 0";
         Archivos.EscribirArchivo(nombreArchivo,texto);
-        
-        
+   
+    }
+    //Se actualiza el sistema por ser dia miercoles (se borran las peliculas que no llegan al minimo de ventas)
+    static void ActualizarSistema() throws IOException{
+        Scanner ingreso = new Scanner(System.in);
+        int OP_Cine = ingreso.nextInt();
+        String eliminarP ="";
+        String linea, slinea;
+        String archivoTemporal = "C:\\ProyectoCine\\clientes_temp.txt";
+        Archivos.crearArchivo(archivoTemporal);
+        FileReader ep;
+        FileReader cr;
+        try {
+            cr = new FileReader("C:\\ProyectoCine\\catalogoPeliculas.txt");
+            BufferedReader br = new BufferedReader(cr);
+            System.out.println("Lista actual de peliculas");
+            while((linea = br.readLine()) != null){
+                String [] parts = linea.split(" ");
+                String part1 = parts[0];
+                String part2 = parts[1];
+                System.out.println(part1+"   "+part2);
+            }
+            ep = new FileReader("C:\\ProyectoCine\\catalogoPeliculas.txt");
+            BufferedReader dr = new BufferedReader(ep);
+            System.out.println("Ingresar codigo de pelicula a eliminar: ");
+            eliminarP = ingreso.next();
+            while((slinea = dr.readLine()) != null){
+                String [] parts = slinea.split(" ");
+                String part1 = parts[0];
+                String part2 = parts[1];
+                if(part1==eliminarP){
+                    System.out.println("Pelicula eliminada");
+
+                }else{
+                    Archivos.EscribirArchivo(archivoTemporal, slinea);
+                }
+            }          
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Proyecto_cine.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
   
