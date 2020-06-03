@@ -37,11 +37,13 @@ if (!archivo.exists()) {
         Archivos.crearArchivo(nombreArchivo);  
         CrearPeliculas();
         nombreArchivo = "C:\\ProyectoCine\\catalogoEmpleados.txt";
-        Archivos.crearArchivo(nombreArchivo);        
+        Archivos.crearArchivo(nombreArchivo); 
+        String texto="";
         nombreArchivo = "C:\\ProyectoCine\\catalogoCajas.txt";
         Archivos.crearArchivo(nombreArchivo);         
         nombreArchivo = "C:\\ProyectoCine\\catalogoSalas.txt";
         Archivos.crearArchivo(nombreArchivo);  
+        Salas();
         
         File Archivo_Clientes = new File("C:\\ProyectoCine\\clientes.txt");
 //        File Archivo_CatPeliculas = new File("C:\\ProyectoCine\\catalogoPeliculas.txt.txt");
@@ -78,20 +80,30 @@ if (!archivo.exists()) {
                         
                         for (int i = 1; i < 9; ++i){                        
                         System.out.println("------Gestion de Salas------");
-                        System.out.println("Sala "+i);
-                        System.out.println("Ingrese capacidad sala ");
-                        info=ingreso.next();
-                        System.out.println("Ingrese horario 1 ");
-                        info=info+" "+ingreso.next();
-                        System.out.println("Ingrese horario 2 ");
-                        info=info+" "+ingreso.next();
-                        System.out.println("Ingrese precio 2D");
-                        info=info+" "+ingreso.next();
-                        System.out.println("Ingrese precio 3D");
-                        info=info+" "+ingreso.next();
-                        System.out.println("Ingrese precio 4D");
-                        info=info+" "+ingreso.next();
-                        Archivos.EscribirArchivo("C:\\ProyectoCine\\catalogoSalas.txt", info);
+                        System.out.println("1. Gestion de Salas ");
+                        System.out.println("2. Gestion de Peliculas ");
+                        int OP_Salas = ingreso.nextInt();
+                        switch(OP_Salas){
+                            case 1:
+                                System.out.println("Sala "+i);
+                                System.out.println("Ingrese capacidad sala ");
+                                info=ingreso.next();
+                                System.out.println("Ingrese horario 1 ");
+                                info=info+" "+ingreso.next();
+                                System.out.println("Ingrese horario 2 ");
+                                info=info+" "+ingreso.next();
+                                System.out.println("Ingrese precio 2D");
+                                info=info+" "+ingreso.next();
+                                System.out.println("Ingrese precio 3D");
+                                info=info+" "+ingreso.next();
+                                System.out.println("Ingrese precio 4D");
+                                info=info+" "+ingreso.next();
+                                Archivos.EscribirArchivo("C:\\ProyectoCine\\catalogoSalas.txt", info);
+                                break;
+                            case 2:
+                                break;
+                        }
+                        
                         }
                         break;
                     case 2:
@@ -189,9 +201,9 @@ if (!archivo.exists()) {
             case 2:
             for (int i = 0; i < 15; ++i) System.out.println();
                 System.out.println("------Gestion Ventas------");
-                System.out.println("1. Tickets");
-                System.out.println("2. Membresia");  
-                System.out.println("2. Paquetes");
+                System.out.println("1. Tickets"); // 
+                System.out.println("2. Membresia");  //Membresia = Q 45.00 -> Q 2.25 de comision 
+                System.out.println("2. Paquetes");// Paquete = Q2500.00 -> Q 62.5 de comision
                 System.out.println("5. Volver a menu principal");
             break;
             case 3:
@@ -286,6 +298,31 @@ if (!archivo.exists()) {
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Proyecto_cine.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+        //Funcion para crear Salas iniciales
+    static void Salas(){
+        String texto="";
+        String nombreArchivo = "C:\\ProyectoCine\\catalogoSalas.txt";
+        texto="Sala1 17:30 20:30 150 60 90 120";//2D, 3D y 4D
+        Archivos.EscribirArchivo(nombreArchivo,texto);
+        texto="Sala2 17:30 20:30 100 60 90 X";//2D y 3D
+        Archivos.EscribirArchivo(nombreArchivo,texto);
+        texto="Sala3 17:30 20:30 100 60 90 X";//2D y 3D
+        Archivos.EscribirArchivo(nombreArchivo,texto);
+        texto="Sala4 125 60 X  X";//nfantiles
+        Archivos.EscribirArchivo(nombreArchivo,texto);   
+        texto="Sala5 17:30 20:30 100 60 90 X";//2D y 3D
+        Archivos.EscribirArchivo(nombreArchivo,texto);
+        texto="Sala6 17:30 20:30 75 60 X X";//2D
+        Archivos.EscribirArchivo(nombreArchivo,texto);
+        texto="Sala7 17:30 20:30 75 60 X X";//2D
+        Archivos.EscribirArchivo(nombreArchivo,texto);
+        texto="Sala8 17:30 20:30 75 60 X X";//2D
+        Archivos.EscribirArchivo(nombreArchivo,texto);
+    }
+        //Funcion para crear empleados iniciales
+    static void Empleados(){
+        String texto="";
     }
     
   
