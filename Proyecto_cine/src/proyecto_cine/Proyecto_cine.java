@@ -26,9 +26,6 @@ if (!archivo.exists()) {
     System.out.println("Repositorio C:\\ProyectoCine no existe!!");
     
 }
-
-
-
         String nombreArchivo;
         nombreArchivo = "C:\\ProyectoCine\\clientes.txt";
         Archivos.crearArchivo(nombreArchivo);
@@ -38,21 +35,22 @@ if (!archivo.exists()) {
         CrearPeliculas();
         nombreArchivo = "C:\\ProyectoCine\\catalogoEmpleados.txt";
         Archivos.crearArchivo(nombreArchivo); 
-        String texto="";
+        Empleados();
         nombreArchivo = "C:\\ProyectoCine\\catalogoCajas.txt";
         Archivos.crearArchivo(nombreArchivo);         
         nombreArchivo = "C:\\ProyectoCine\\catalogoSalas.txt";
         Archivos.crearArchivo(nombreArchivo);  
         Salas();
         
-        File Archivo_Clientes = new File("C:\\ProyectoCine\\clientes.txt");
-//        File Archivo_CatPeliculas = new File("C:\\ProyectoCine\\catalogoPeliculas.txt.txt");
-        File Archivo_CatEmpleados = new File("C:\\ProyectoCine\\catalogoEmpleados.txt");
-        File Archivo_CarCajas = new File("C:\\ProyectoCine\\catalogoCajas.txt");
-        File Archivo_CatSalas = new File("C:\\ProyectoCine\\catalogoSalas.txt");
+//        File Archivo_Clientes = new File("C:\\ProyectoCine\\clientes.txt");
+////        File Archivo_CatPeliculas = new File("C:\\ProyectoCine\\catalogoPeliculas.txt.txt");
+//        File Archivo_CatEmpleados = new File("C:\\ProyectoCine\\catalogoEmpleados.txt");
+//        File Archivo_CarCajas = new File("C:\\ProyectoCine\\catalogoCajas.txt");
+//        File Archivo_CatSalas = new File("C:\\ProyectoCine\\catalogoSalas.txt");
 
         Scanner ingreso = new Scanner(System.in);
         boolean salir = false;
+        Random digito = new Random();
        
       
         while(!salir){
@@ -72,16 +70,16 @@ if (!archivo.exists()) {
                 System.out.println("2. Gestion de Peliculas ");
                 System.out.println("3. Gestion de Empleados (Agregar o eliminar empleado)");
                 System.out.println("4. Reportes de sistema");
-                System.out.println("5. Volver a menu principal");
+                System.out.println("5. Gestion de Cajas");
+                System.out.println("6. Volver a menu principal");
                 int OP_Administrador = ingreso.nextInt();
                 switch(OP_Administrador){
                     case 1:
                         String info=null;
-                        
                         for (int i = 1; i < 9; ++i){                        
                         System.out.println("------Gestion de Salas------");
-                        System.out.println("1. Gestion de Salas ");
-                        System.out.println("2. Gestion de Peliculas ");
+                        System.out.println("1. Agregar nueva sala");
+                        System.out.println("2. Eliminar sala");
                         int OP_Salas = ingreso.nextInt();
                         switch(OP_Salas){
                             case 1:
@@ -103,7 +101,6 @@ if (!archivo.exists()) {
                             case 2:
                                 break;
                         }
-                        
                         }
                         break;
                     case 2:
@@ -151,9 +148,7 @@ if (!archivo.exists()) {
                                 System.out.println("Codigo      Nombre ");
                                 int h =1;
                                 int nuevoCodigo=0;
-
-                                
-                                                                try{
+                                    try{
                                         FileReader fr = new FileReader("C:\\ProyectoCine\\catalogoPeliculas.txt");
                                         BufferedReader br = new BufferedReader(fr);
                                         String temp = Archivos.LeerArchivo("C:\\ProyectoCine\\catalogoPeliculas.txt");
@@ -185,6 +180,49 @@ if (!archivo.exists()) {
                                 break;
                                 }
                     case 3:
+                        String Sueldo_Empleado="";
+                        String info_empleado="";
+                        System.out.println("------Gestion de Empleados------");
+                        System.out.println("1. Agregar nuevo empleado ");
+                        System.out.println("2. Eliminar empleado ");
+                        int OP_Empleados = ingreso.nextInt();
+                        switch(OP_Empleados){
+                            case 1:
+                                String vari = "E";
+                                int N4 = digito.nextInt(1200);
+                                String nombre6 = Integer.toString(N4);
+//                                info_empleado=vari+nombre6+" "+info_empleado;
+                                System.out.println("Ingrese letra de puesto de empleado ");
+                                System.out.println("1. Administracion ");
+                                System.out.println("2. Mantenimiento ");
+                                System.out.println("3. Ventas");
+                                int OP_Empleados_2 = ingreso.nextInt();
+                                if(OP_Empleados_2==1){
+                                    info_empleado=vari+nombre6+" A"+info_empleado;
+                                    Sueldo_Empleado=Integer.toString(10000);
+                                } else if(OP_Empleados_2==2){
+                                    info_empleado=vari+nombre6+" M"+info_empleado;
+                                    Sueldo_Empleado=Integer.toString(4000);
+                                } else if(OP_Empleados_2==3){
+                                    info_empleado=vari+nombre6+" V"+info_empleado;
+                                    Sueldo_Empleado=Integer.toString(3500);
+                                }                     
+                                info_empleado=info_empleado+" "+Sueldo_Empleado;
+                                System.out.println("Ingrese Primer Nombre:");
+                                info_empleado=info_empleado+" "+ingreso.next();
+                                System.out.println("Ingrese Primer Apellido");
+                                info_empleado=info_empleado+" "+ingreso.next();
+                                if(OP_Empleados_2==3){
+                                info_empleado=info_empleado+" 0 0";
+                                } else{
+                                info_empleado=info_empleado+" N N";
+                                }
+                                Archivos.EscribirArchivo("C:\\ProyectoCine\\catalogoEmpleados.txt", info_empleado);
+                                break;
+                            case 2:
+                                break;
+                        }
+                        
                         break;
                     case 4:
                     for (int i = 0; i < 15; ++i) System.out.println();
@@ -195,8 +233,18 @@ if (!archivo.exists()) {
                         System.out.println("4. Reporte de ventas por pelicula");// cuanto ha recaudado cada una, total de tiquetes por película y una distribución de porcentajes de clientes por genero.
                         System.out.println("5. Volver a menu principal");
                         break;
-
+                    case 5:
+                        System.out.println("------Gestion de Cajas------");
+                        System.out.println("1. Agregar nueva caja");
+                        System.out.println("2. Eliminar sala");
+                        
+                    break;
+                    case 6:
+                        salir = true;
+                        break;
+                        
                     }
+
                     break;
             case 2:
             for (int i = 0; i < 15; ++i) System.out.println();
@@ -209,9 +257,6 @@ if (!archivo.exists()) {
             case 3:
                 System.exit(0);
                 break;
-            case 5:
-                salir = true;
-            break;
             default:
                 System.out.println("Solo números entre 1 y 3");
             }
@@ -258,6 +303,8 @@ if (!archivo.exists()) {
         Archivos.EscribirArchivo(nombreArchivo,texto);
         texto="P4 Titanic C 300 Disponible 0";
         Archivos.EscribirArchivo(nombreArchivo,texto);
+        texto="P5 Sataniame D 300 Disponible 0";
+        Archivos.EscribirArchivo(nombreArchivo,texto);
    
     }
     //Se actualiza el sistema por ser dia miercoles (se borran las peliculas que no llegan al minimo de ventas)
@@ -303,26 +350,39 @@ if (!archivo.exists()) {
     static void Salas(){
         String texto="";
         String nombreArchivo = "C:\\ProyectoCine\\catalogoSalas.txt";
-        texto="Sala1 17:30 20:30 150 60 90 120";//2D, 3D y 4D
+        texto="Sala1 P1 20:30 150 0 60 90 120";//2D, 3D y 4D
         Archivos.EscribirArchivo(nombreArchivo,texto);
-        texto="Sala2 17:30 20:30 100 60 90 X";//2D y 3D
+        texto="Sala2 P2 P1 100 0 60 90 X";//2D y 3D
         Archivos.EscribirArchivo(nombreArchivo,texto);
-        texto="Sala3 17:30 20:30 100 60 90 X";//2D y 3D
+        texto="Sala3 P3 P2 100 0 60 90 X";//2D y 3D
         Archivos.EscribirArchivo(nombreArchivo,texto);
-        texto="Sala4 125 60 X  X";//nfantiles
+        texto="Sala4 125 0 60 X  X";//infantiles
         Archivos.EscribirArchivo(nombreArchivo,texto);   
-        texto="Sala5 17:30 20:30 100 60 90 X";//2D y 3D
+        texto="Sala5 P4 P3 100 0 60 90 X";//2D y 3D
         Archivos.EscribirArchivo(nombreArchivo,texto);
-        texto="Sala6 17:30 20:30 75 60 X X";//2D
+        texto="Sala6 P5 P4 75 0 60 X X";//2D
         Archivos.EscribirArchivo(nombreArchivo,texto);
-        texto="Sala7 17:30 20:30 75 60 X X";//2D
+        texto="Sala7 17:30 P5 75 0 60 X X";//2D
         Archivos.EscribirArchivo(nombreArchivo,texto);
-        texto="Sala8 17:30 20:30 75 60 X X";//2D
+        texto="Sala8 17:30 20:30 75 0 60 X X";//2D
         Archivos.EscribirArchivo(nombreArchivo,texto);
     }
         //Funcion para crear empleados iniciales
     static void Empleados(){
         String texto="";
+        String nombreArchivo = "C:\\ProyectoCine\\catalogoEmpleados.txt";
+        texto="E1325 A 10000 Antonio Banderas N N";
+        Archivos.EscribirArchivo(nombreArchivo,texto);
+        texto="E1343 A 10000 Carlos Merida N N";
+        Archivos.EscribirArchivo(nombreArchivo,texto);
+        texto="E1432 V 3500 Sebastian Hernandez 0 0";
+        Archivos.EscribirArchivo(nombreArchivo,texto);
+        texto="E1378 V 3500 Juan Maegli 0 0";
+        Archivos.EscribirArchivo(nombreArchivo,texto);
+        texto="E1511 M 4000 Hector Hernandez N N";
+        Archivos.EscribirArchivo(nombreArchivo,texto);
+        texto="E1669 M 4000 Emanuel Tavarez N N";
+        Archivos.EscribirArchivo(nombreArchivo,texto);
     }
     
   
