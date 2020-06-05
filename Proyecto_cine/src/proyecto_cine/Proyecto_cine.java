@@ -8,6 +8,9 @@ import java.io.File;
 import java.util.Scanner;
 import java.io.*;
 import java.io.BufferedReader;
+import java.util.ArrayDeque;
+import java.util.Collections;
+import java.util.Deque;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,7 +40,8 @@ if (!archivo.exists()) {
         Archivos.crearArchivo(nombreArchivo); 
         Empleados();
         nombreArchivo = "C:\\ProyectoCine\\catalogoCajas.txt";
-        Archivos.crearArchivo(nombreArchivo);         
+        Archivos.crearArchivo(nombreArchivo);    
+        Cajas();
         nombreArchivo = "C:\\ProyectoCine\\catalogoSalas.txt";
         Archivos.crearArchivo(nombreArchivo);  
         Salas();
@@ -70,8 +74,7 @@ if (!archivo.exists()) {
                 System.out.println("2. Gestion de Peliculas ");
                 System.out.println("3. Gestion de Empleados (Agregar o eliminar empleado)");
                 System.out.println("4. Reportes de sistema");
-                System.out.println("5. Gestion de Cajas");
-                System.out.println("6. Volver a menu principal");
+                System.out.println("5. Salir");
                 int OP_Administrador = ingreso.nextInt();
                 switch(OP_Administrador){
                     case 1:
@@ -109,9 +112,9 @@ if (!archivo.exists()) {
                         System.out.println("2. Martes");
                         System.out.println("3. Miercoles");
                         System.out.println("4. Jueves");
-                        System.out.println("5. Viernes");
-                        System.out.println("6. Sabado");
-                        System.out.println("7. Domingo");
+                        System.out.println("6. Viernes");
+                        System.out.println("7. Sabado");
+                        System.out.println("8. Domingo");
                         int dia = ingreso.nextInt();
                                 if(dia==3){
                                     ActualizarSistema();
@@ -191,7 +194,6 @@ if (!archivo.exists()) {
                                 String vari = "E";
                                 int N4 = digito.nextInt(1200);
                                 String nombre6 = Integer.toString(N4);
-//                                info_empleado=vari+nombre6+" "+info_empleado;
                                 System.out.println("Ingrese letra de puesto de empleado ");
                                 System.out.println("1. Administracion ");
                                 System.out.println("2. Mantenimiento ");
@@ -234,12 +236,6 @@ if (!archivo.exists()) {
                         System.out.println("5. Volver a menu principal");
                         break;
                     case 5:
-                        System.out.println("------Gestion de Cajas------");
-                        System.out.println("1. Agregar nueva caja");
-                        System.out.println("2. Eliminar sala");
-                        
-                    break;
-                    case 6:
                         salir = true;
                         break;
                         
@@ -249,10 +245,39 @@ if (!archivo.exists()) {
             case 2:
             for (int i = 0; i < 15; ++i) System.out.println();
                 System.out.println("------Gestion Ventas------");
-                System.out.println("1. Tickets"); // 
-                System.out.println("2. Membresia");  //Membresia = Q 45.00 -> Q 2.25 de comision 
-                System.out.println("2. Paquetes");// Paquete = Q2500.00 -> Q 62.5 de comision
-                System.out.println("5. Volver a menu principal");
+                System.out.println("1. Proceso de ventas 1 (Proceso Normal)"); // 
+                System.out.println("2. Proceso de ventas 2 (2000 Clientes Preingresados)"); // 
+
+                int OP_Ventas = ingreso.nextInt();
+                switch(OP_Ventas){
+                    case 1:
+                        System.out.println("------Gestion Ventas (Proceso 1)------");
+                        System.out.println("1. Tickets"); // 
+                        System.out.println("2. Membresia");  //Membresia = Q 45.00 -> Q 2.25 de comision 
+                        System.out.println("3. Paquetes");// Paquete = Q2500.00 -> Q 62.5 de comision
+                        System.out.println("5. Volver a menu principal");
+                        int OP_Ventas_P1 = ingreso.nextInt();
+                        switch(OP_Ventas_P1){
+                            case 1:
+                                System.out.println("------Ventas de Tickets------");   
+                            case 2:
+                            case 3:    
+
+                        }
+                        break;
+                    case 2:
+                        break;
+                    case 5:
+                        break;
+                }
+                
+                
+                
+                
+                
+                
+                
+                
             break;
             case 3:
                 System.exit(0);
@@ -295,62 +320,85 @@ if (!archivo.exists()) {
     public static void CrearPeliculas(){
         String texto="";
         String nombreArchivo = "C:\\ProyectoCine\\catalogoPeliculas.txt";
-        texto="P1 Avatar C 1500 Disponible 1";
+        texto="1 Avatar C 1500 Disponible 1";
         Archivos.EscribirArchivo(nombreArchivo,texto);
-        texto="P2 Hunger_Games C 2700 Disponible 2";
+        texto="2 Hunger_Games C 2700 Disponible 2";
         Archivos.EscribirArchivo(nombreArchivo,texto);
-        texto="P3 1971 C 7000 Disponible 0";
+        texto="3 1971 C 7000 Disponible 0";
         Archivos.EscribirArchivo(nombreArchivo,texto);
-        texto="P4 Titanic C 300 Disponible 0";
+        texto="4 Titanic C 300 Disponible 0";
         Archivos.EscribirArchivo(nombreArchivo,texto);
-        texto="P5 Sataniame D 300 Disponible 0";
+        texto="5 Sataniame D 300 Disponible 0";
         Archivos.EscribirArchivo(nombreArchivo,texto);
    
     }
     //Se actualiza el sistema por ser dia miercoles (se borran las peliculas que no llegan al minimo de ventas)
     static void ActualizarSistema() throws IOException{
         Scanner ingreso = new Scanner(System.in);
-        int OP_Cine = ingreso.nextInt();
-        String eliminarP ="";
-        String linea, slinea;
-        String archivoTemporal = "C:\\ProyectoCine\\clientes_temp.txt";
-        Archivos.crearArchivo(archivoTemporal);
-        FileReader ep;
+        Deque<String> Cola_peliculas = new ArrayDeque<String>();
+//        int OP_Cine = ingreso.nextInt();
+        int eliminarP =0;
+        String linea;
         FileReader cr;
         try {
             cr = new FileReader("C:\\ProyectoCine\\catalogoPeliculas.txt");
             BufferedReader br = new BufferedReader(cr);
-            System.out.println("Lista actual de peliculas");
+//            System.out.println("Lista actual de peliculas");
             while((linea = br.readLine()) != null){
                 String [] parts = linea.split(" ");
                 String part1 = parts[0];
                 String part2 = parts[1];
-                System.out.println(part1+"   "+part2);
+                Cola_peliculas.addLast(linea);
+//                System.out.println(part1+"   "+part2);
             }
-            ep = new FileReader("C:\\ProyectoCine\\catalogoPeliculas.txt");
-            BufferedReader dr = new BufferedReader(ep);
-            System.out.println("Ingresar codigo de pelicula a eliminar: ");
-            eliminarP = ingreso.next();
-            while((slinea = dr.readLine()) != null){
-                String [] parts = slinea.split(" ");
-                String part1 = parts[0];
-                String part2 = parts[1];
-                if(part1==eliminarP){
-                    System.out.println("Pelicula eliminada");
-
-                }else{
-                    Archivos.EscribirArchivo(archivoTemporal, slinea);
-                }
-            }          
-        } catch (FileNotFoundException ex) {
+            } catch (FileNotFoundException ex) {
             Logger.getLogger(Proyecto_cine.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+//            System.out.println("Ingresar codigo de pelicula a eliminar: ");
+//            eliminarP = ingreso.nextInt();          
+            
+            
+            for(String elemento: Cola_peliculas){
+                String [] parts = elemento.split(" ");
+                String parte1 = parts[0];
+//                int cant1=Integer.parseInt(parte1);
+                String parte2 = parts[1];
+                String parte3 = parts[2];
+                String parte4 = parts[3];
+                int cant4=Integer.parseInt(parte4);
+                String parte5 = parts[4];
+                String parte6 = parts[5];
+                int cant6=Integer.parseInt(parte6);
+                
+                if(cant4<=999){
+                    Cola_peliculas.remove(elemento);
+                } else if(cant4>=1000){
+                    cant6=cant6+1;
+                    cant4=0;
+                } else{
+                
+                }
+                
+                
+//                if(cant1==eliminarP){
+//                    Cola_peliculas.remove(elemento);
+//            }
+            }
+            Archivos.crearArchivo("C:\\ProyectoCine\\catalogoPeliculas.txt");
+            for(String elementos: Cola_peliculas){
+                Archivos.EscribirArchivo("C:\\ProyectoCine\\catalogoPeliculas.txt", elementos);
+                 System.out.println(elementos);                
+            }
+            
+            
+
     }
         //Funcion para crear Salas iniciales
     static void Salas(){
         String texto="";
         String nombreArchivo = "C:\\ProyectoCine\\catalogoSalas.txt";
-        texto="Sala1 P1 20:30 150 0 60 90 120";//2D, 3D y 4D
+        texto="Sala1 P1 N 150 0 60 90 120";//2D, 3D y 4D
         Archivos.EscribirArchivo(nombreArchivo,texto);
         texto="Sala2 P2 P1 100 0 60 90 X";//2D y 3D
         Archivos.EscribirArchivo(nombreArchivo,texto);
@@ -384,8 +432,19 @@ if (!archivo.exists()) {
         texto="E1669 M 4000 Emanuel Tavarez N N";
         Archivos.EscribirArchivo(nombreArchivo,texto);
     }
-    
-  
-        
- 
+     //Funcion para crear cajas iniciales
+    static void Cajas(){
+        String texto="";
+        String nombreArchivo = "C:\\ProyectoCine\\catalogoCajas.txt";
+        texto="1 Caja1";
+        Archivos.EscribirArchivo(nombreArchivo,texto);
+        texto="2 Caja2";
+        Archivos.EscribirArchivo(nombreArchivo,texto);
+        texto="3 Caja3";
+        Archivos.EscribirArchivo(nombreArchivo,texto);
+        texto="4 Caja4";
+        Archivos.EscribirArchivo(nombreArchivo,texto);
+        texto="5 Caja5";
+        Archivos.EscribirArchivo(nombreArchivo,texto);
+    }
 }
