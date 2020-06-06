@@ -451,11 +451,11 @@ if (!archivo.exists()) {
     
    
    static void VentasAleatorias(){
-    String[][] matriz= new String[1999][3];
+    String[][] matriz= new String[2000][3];
        try {
         //ruta de tu archivo
         String ruta = "C:\\ProyectoCine\\clientes.txt";
-        BufferedReader br = new BufferedReader(new FileReader(ruta));;
+        BufferedReader br = new BufferedReader(new FileReader(ruta));
         //leemos la primera linea
         String linea =  br.readLine();
         //creamos la matriz vacia
@@ -474,8 +474,64 @@ if (!archivo.exists()) {
         }
     } catch (IOException | NumberFormatException e) {
         e.printStackTrace();
-    }      
     }
+  
+       
+       //peliculas disponibles
+      try {
+        //ruta de tu archivo
+        String ruta = "C:\\ProyectoCine\\catalogoSalas.txt";
+        BufferedReader br = new BufferedReader(new FileReader(ruta));
+        //leemos la primera linea
+        String linea =  br.readLine();
+        //creamos la matriz vacia
+       
+        //contador
+        int contador = 0;
+        while(linea != null){
+            String[] values = linea.split(" ");
+            //recorremos el arrar de string
+            for (int i = 0; i<values.length; i++) {
+                //se obtiene el primer caracter de el arreglo de strings
+                matriz[contador][i] = values[i].toString();
+            }
+            contador++;
+            linea = br.readLine();
+        }
+    } catch (IOException | NumberFormatException e) {
+        e.printStackTrace();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+///caja1
+       
+       Random digito = new Random();
+       int ContC1=0;      
+       for(int i=0;i<400;i++){
+          int N = digito.nextInt(10)+1;   
+          ContC1=ContC1+N;
+          
+  
+  }
+       
+       
+       
+       
+       
+  
+}
     
     
 }
