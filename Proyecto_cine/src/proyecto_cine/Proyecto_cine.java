@@ -266,6 +266,7 @@ if (!archivo.exists()) {
                         }
                         break;
                     case 2:
+                        VentasAleatorias();
                         break;
                     case 5:
                         break;
@@ -297,7 +298,7 @@ if (!archivo.exists()) {
         String nombreArchivo = "C:\\ProyectoCine\\clientes.txt";
         Random digito = new Random();
         
-        for(int i=0; i<100; i++){
+        for(int i=0; i<2000; i++){
             int N = digito.nextInt(83);
             edad=N;
             if(i%2==0){
@@ -447,4 +448,34 @@ if (!archivo.exists()) {
         texto="5 Caja5";
         Archivos.EscribirArchivo(nombreArchivo,texto);
     }
+    
+   
+   static void VentasAleatorias(){
+    String[][] matriz= new String[1999][3];
+       try {
+        //ruta de tu archivo
+        String ruta = "C:\\ProyectoCine\\clientes.txt";
+        BufferedReader br = new BufferedReader(new FileReader(ruta));;
+        //leemos la primera linea
+        String linea =  br.readLine();
+        //creamos la matriz vacia
+       
+        //contador
+        int contador = 0;
+        while(linea != null){
+            String[] values = linea.split(" ");
+            //recorremos el arrar de string
+            for (int i = 0; i<values.length; i++) {
+                //se obtiene el primer caracter de el arreglo de strings
+                matriz[contador][i] = values[i].toString();
+            }
+            contador++;
+            linea = br.readLine();
+        }
+    } catch (IOException | NumberFormatException e) {
+        e.printStackTrace();
+    }      
+    }
+    
+    
 }
