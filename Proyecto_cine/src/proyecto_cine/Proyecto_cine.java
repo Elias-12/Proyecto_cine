@@ -245,11 +245,23 @@ if (!archivo.exists()) {
                                     System.out.println("2. Reporte ventas aleatorias");
                                     int OP_Ventas = ingreso.nextInt();
                                     switch(OP_Ventas){
-                                    case 1:System.out.println("-----------Ventas---------");
-                                           System.out.println("Caja-1   Caja-2  Caja-3  Caja-4  Caja-5  % Visitas M     % Visitas F");
-                                           Archivos.LeerArchivo("C:\\ProyectoCine\\ReporteVentasAleatorio.txt");
+                                    case 1:
                                     break;
-                                    case 2:break;                               
+                                    case 2: System.out.println("-----------Ventas---------");
+                                            System.out.println("Caja-1   Caja-2  Caja-3  Caja-4  Caja-5  % Visitas M     % Visitas F");
+                                            
+                                            
+                                            String cadena;
+                                            FileReader f = new FileReader("C:\\ProyectoCine\\ReporteVentasAleatorio.txt");
+                                            BufferedReader b = new BufferedReader(f);
+                                            while((cadena = b.readLine())!=null) {
+                                            System.out.println(cadena);
+                                            }
+                                            b.close();
+                                           
+                                           
+                                           break;
+                                                                      
                                     
                                     }
                         break;
@@ -879,7 +891,7 @@ if (!archivo.exists()) {
           int total=mujer+hombre;
           int porchombre=(hombre*100)/total;
           int porcmujer=(mujer*100)/total;
-       String texto=String.valueOf(ContC1+" "+ContC2+" "+ContC3+" "+ContC4+" "+ContC1+" "+porcmujer+" "+porchombre);
+       String texto=String.valueOf("  "+ContC1+"     "+ContC2+"    "+ContC3+"    "+ContC4+"    "+ContC5+"           "+porcmujer+"              "+porchombre);
        System.out.println(matriz[2][1]);
        Archivos.EscribirArchivo("C:\\ProyectoCine\\ReporteVentasAleatorio.txt", texto);
  
