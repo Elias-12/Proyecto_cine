@@ -799,7 +799,7 @@ if (!archivo.exists()) {
           int total=mujer+hombre;
           int porchombre=(hombre*100)/total;
           int porcmujer=(mujer*100)/total;
-       String texto=String.valueOf("Masculino"+porcmujer+" "+porchombre);
+       String texto=String.valueOf(ContC1+" "+ContC2+" "+ContC3+" "+ContC4+" "+ContC1+" "+porcmujer+" "+porchombre);
        System.out.println(matriz[2][1]);
        Archivos.EscribirArchivo("C:\\ProyectoCine\\ReporteVentasAleatorio.txt", texto);
  
