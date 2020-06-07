@@ -30,6 +30,8 @@ if (!archivo.exists()) {
     
 }
         String nombreArchivo;
+        nombreArchivo = "C:\\ProyectoCine\\ReporteVentasAleatorio.txt";
+        Archivos.crearArchivo(nombreArchivo);
         nombreArchivo = "C:\\ProyectoCine\\clientes.txt";
         Archivos.crearArchivo(nombreArchivo);
         DosMil_Clientes();
@@ -653,7 +655,11 @@ if (!archivo.exists()) {
     }
   
        
-       //peliculas disponibles
+      
+       
+        String[][] matriz2= new String[100][15];
+      int No_Sala=0;
+//peliculas disponibles
       try {
         //ruta de tu archivo
         String ruta = "C:\\ProyectoCine\\catalogoSalas.txt";
@@ -669,9 +675,36 @@ if (!archivo.exists()) {
             //recorremos el arrar de string
             for (int i = 0; i<values.length; i++) {
                 //se obtiene el primer caracter de el arreglo de strings
-                matriz[contador][i] = values[i].toString();
+                matriz2[No_Sala][i] = values[i].toString();
             }
-            contador++;
+            No_Sala++;
+            linea = br.readLine();
+        }
+    } catch (IOException | NumberFormatException e) {
+        e.printStackTrace();
+    }
+      
+      String[][] matriz3= new String[100][15];
+      int No_pelicula=0;
+      int[] ContPeli= new int[100];
+      try {
+        //ruta de tu archivo
+        String ruta = "C:\\ProyectoCine\\catalogoPeliculas.txt";
+        BufferedReader br = new BufferedReader(new FileReader(ruta));
+        //leemos la primera linea
+        String linea =  br.readLine();
+        //creamos la matriz vacia
+       
+        //contador
+        
+        while(linea != null){
+            String[] values = linea.split(" ");
+            //recorremos el arrar de string
+            for (int i = 0; i<values.length; i++) {
+                //se obtiene el primer caracter de el arreglo de strings
+                matriz3[No_pelicula][i] = values[i].toString();
+            }
+            No_pelicula++;
             linea = br.readLine();
         }
     } catch (IOException | NumberFormatException e) {
@@ -680,13 +713,95 @@ if (!archivo.exists()) {
 ///caja1
        
        Random digito = new Random();
-       int ContC1=0;      
+       int ContC1=0;
+       int ContC2=0;
+       int ContC3=0;
+       int ContC4=0;
+       int ContC5=0;
+       int hombre=0;
+       int mujer=0;
+       int Pelicula=0;
+       int totalrecaudado=0;
+       
        for(int i=0;i<400;i++){
           int N = digito.nextInt(10)+1;   
-          ContC1=ContC1+N;
+          int sala=digito.nextInt(8)+1; 
+          if(sala==1){}
           
-  
-  }
+          Pelicula=digito.nextInt(No_pelicula)+1;
+          
+          ContPeli[Pelicula]=ContPeli[Pelicula]+ContPeli[Pelicula];
+          
+          ContC1=ContC1+N;  
+          
+          if(matriz[i][1].equals("Masculino")){
+          hombre=hombre+1;                
+          }
+          if(matriz[i][1].equals("Femenino")){
+          mujer=mujer+1;                
+          
+          }
+          
+          }
+       for(int i=400;i<800;i++){
+          int N = digito.nextInt(10)+1;   
+          Pelicula=digito.nextInt(No_pelicula)+1;
+          ContPeli[Pelicula]=ContPeli[Pelicula]+ContPeli[Pelicula];
+          ContC2=ContC2+N;          
+          if(matriz[i][1].equals("Masculino")){
+          hombre=hombre+1;                
+          }
+          if(matriz[i][1].equals("Femenino")){
+          mujer=mujer+1;                
+          
+          }
+       }
+       for(int i=800;i<1200;i++){
+          int N = digito.nextInt(10)+1;   
+          Pelicula=digito.nextInt(No_pelicula)+1;
+          ContPeli[Pelicula]=ContPeli[Pelicula]+ContPeli[Pelicula];
+          ContC3=ContC3+N;          
+          if(matriz[i][1].equals("Masculino")){
+          hombre=hombre+1;                
+          }
+          if(matriz[i][1].equals("Femenino")){
+          mujer=mujer+1;                
+          }
+       
+       }
+       for(int i=1200;i<1600;i++){
+          int N = digito.nextInt(10)+1;   
+          Pelicula=digito.nextInt(No_pelicula)+1;
+          ContPeli[Pelicula]=ContPeli[Pelicula]+ContPeli[Pelicula];
+          ContC4=ContC4+N;          
+          if(matriz[i][1].equals("Masculino")){
+          hombre=hombre+1;                
+          }
+          if(matriz[i][1].equals("Femenino")){
+          mujer=mujer+1;                
+          
+          }
+       }
+       for(int i=1600;i<2000;i++){
+          int N = digito.nextInt(10)+1;   
+          Pelicula=digito.nextInt(No_pelicula)+1;
+          ContPeli[Pelicula]=ContPeli[Pelicula]+ContPeli[Pelicula];
+          ContC5=ContC5+N;          
+          if(matriz[i][1].equals("Masculino")){
+          hombre=hombre+1;                
+          }
+          if(matriz[i][1].equals("Femenino")){
+          mujer=mujer+1;                
+          }
+         
+               
+       }
+          int total=mujer+hombre;
+          int porchombre=(hombre*100)/total;
+          int porcmujer=(mujer*100)/total;
+       String texto=String.valueOf("Masculino"+porcmujer+" "+porchombre);
+       System.out.println(matriz[2][1]);
+       Archivos.EscribirArchivo("C:\\ProyectoCine\\ReporteVentasAleatorio.txt", texto);
  
 }
 public static void ActualizarSalas(int fila, int cantidad) throws IOException{
