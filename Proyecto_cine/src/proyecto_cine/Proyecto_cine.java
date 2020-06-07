@@ -232,11 +232,32 @@ if (!archivo.exists()) {
                     case 4:
                     for (int i = 0; i < 15; ++i) System.out.println();
                         System.out.println("------ Administrador Reportes------");
-                        System.out.println("1. Total de ventas por caja () ");//Tambien lo recaudado por cada caja
+                        System.out.println("1. Reporte ventas(Usuario,Aleatorio)");//Tambien lo recaudado por cada caja
                         System.out.println("2. Gestion de Empleados (Agregar o eliminar empleado)");
                         System.out.println("3. Planilla de empleados");
                         System.out.println("4. Reporte de ventas por pelicula");// cuanto ha recaudado cada una, total de tiquetes por película y una distribución de porcentajes de clientes por genero.
                         System.out.println("5. Volver a menu principal");
+                        int OP_Reportes = ingreso.nextInt();
+                        switch(OP_Reportes){
+                            case 1: System.out.println("------ Reporte Ventas------");
+                                    System.out.println("1. Reporte ventas por usuario");
+                                    System.out.println("2. Reporte ventas aleatorias");
+                                    int OP_Ventas = ingreso.nextInt();
+                                    switch(OP_Ventas){
+                                    case 1:System.out.println("-----------Ventas---------");
+                                           System.out.println("Caja-1   Caja-2  Caja-3  Caja-4  Caja-5  % Visitas M     % Visitas F");
+                                           Archivos.LeerArchivo("C:\\ProyectoCine\\ReporteVentasAleatorio.txt");
+                                    break;
+                                    case 2:break;                               
+                                    
+                                    }
+                        break;
+                    case 2:break;
+                    case 3:break;
+                    case 4:break;
+                    case 5:break;
+                        }  
+                        
                         break;
                     case 5:
                         salir = true;
