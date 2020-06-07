@@ -9,7 +9,7 @@ import java.util.Scanner;
 import java.io.*;
 import java.io.BufferedReader;
 import java.util.ArrayDeque;
-import java.util.Collections;
+
 import java.util.Deque;
 import java.util.Random;
 import java.util.logging.Level;
@@ -59,7 +59,6 @@ if (!archivo.exists()) {
         System.out.println("1. Administracion ");
         System.out.println("2. Ventas ");
         System.out.println("3. Salir ");
-        System.out.println("Ingresar Opcion: ");
         System.out.println("---------Ingresar Opcion: ");
         int OP_Cine = ingreso.nextInt();
         
@@ -119,7 +118,7 @@ if (!archivo.exists()) {
                         System.out.println("---------Ingresar Opcion: ");
                         int dia = ingreso.nextInt();
                                 if(dia==3){
-                                    ActualizarSistema(); /// Revizar funcion incompleta
+                                    ActualizarSistema(); 
                                 } 
                         String linea, nuevoNombre="", nuevaCategoria="", nuevaP="";
                         FileReader ar;
@@ -233,11 +232,12 @@ if (!archivo.exists()) {
                     case 4:
                     for (int i = 0; i < 15; ++i) System.out.println();
                         System.out.println("------ Administrador Reportes------");
-                        System.out.println("1. Reporte ventas(Usuario,Aleatorio)");//Tambien lo recaudado por cada caja
-                        System.out.println("2. Gestion de Empleados (Agregar o eliminar empleado)");
+                        System.out.println("1. Reporte ventas(Usuario,Aleatorio)");
+                        System.out.println("2. Sueldo de empleados Tipo Ventas)");
                         System.out.println("3. Planilla de empleados");
-                        System.out.println("4. Reporte de ventas por pelicula");// cuanto ha recaudado cada una, total de tiquetes por película y una distribución de porcentajes de clientes por genero.
+                        System.out.println("4. Reporte de ventas por pelicula");
                         System.out.println("5. Volver a menu principal");
+                        System.out.println("---------Ingresar Opcion: ");
                         int OP_Reportes = ingreso.nextInt();
                         switch(OP_Reportes){
                             case 1: System.out.println("------ Reporte Ventas------");
@@ -249,8 +249,6 @@ if (!archivo.exists()) {
                                     break;
                                     case 2: System.out.println("-----------Ventas---------");
                                             System.out.println("Caja-1   Caja-2  Caja-3  Caja-4  Caja-5  % Visitas M     % Visitas F");
-                                            
-                                            
                                             String cadena;
                                             FileReader f = new FileReader("C:\\ProyectoCine\\ReporteVentasAleatorio.txt");
                                             BufferedReader b = new BufferedReader(f);
@@ -258,44 +256,54 @@ if (!archivo.exists()) {
                                             System.out.println(cadena);
                                             }
                                             b.close();
-                                           
-                                           
-                                           break;
-                                                                      
-                                    
+                                           break; 
                                     }
                         break;
-                    case 2:break;
-                    case 3:break;
-                    case 4:break;
-                    case 5:break;
+                   case 2:
+                        System.out.println("------ Reporte Sueldo de empleados Tipo Ventas------");
+                        ReporteEmpleadosActuales();
+                        System.out.println("______________________");
+                        break;
+                    case 3:
+                        System.out.println("------ Reporte Planilla de Cine------");
+                        ReporteEmpleadosTOTAL();
+                        System.out.println("______________________");
+                        break;
+                    case 4:
+                        System.out.println("------ Reporte de ventas de Peliculas Actuales ------");
+                        ReporteeliculasActuales();
+                        System.out.println("______________________");
+                        break;
+                    case 5:
+                        salir = true;
+                        break;
                         }  
                         
                         break;
                     case 5:
                         salir = true;
-                        break;
-                        
+                        break; 
                     }
-
                     break;
             case 2:
             for (int i = 0; i < 15; ++i) System.out.println();
                 System.out.println("------Gestion Ventas------");
-                System.out.println("1. Proceso de ventas 1 (Proceso Normal)"); // 
-                System.out.println("2. Proceso de ventas 2 (2000 Clientes Preingresados)"); // 
+                System.out.println("1. Proceso de ventas 1 (Proceso Normal)"); 
+                System.out.println("2. Proceso de ventas 2 (2000 Clientes Preingresados)");  
 
                 int OP_Ventas = ingreso.nextInt();
                 int op_cod_pelicula = 0;
                 switch(OP_Ventas){
                     
                     case 1:
-                         float tmembresia=0;
-                        float tpaquete=0;
+                         double tmembresia=0;
+                         int cant_membresias=0;
+                        double tpaquete=0;
+                        int cant_paquetes=0;
                         System.out.println("------Gestion Ventas (Proceso 1)------");
-                        System.out.println("1. Tickets"); // 
-                        System.out.println("2. Membresia");  //Membresia = Q 45.00 -> Q 2.25 de comision 
-                        System.out.println("3. Paquetes");// Paquete = Q2500.00 -> Q 62.5 de comision
+                        System.out.println("1. Tickets"); 
+                        System.out.println("2. Membresia");  
+                        System.out.println("3. Paquetes");
                         System.out.println("4. Volver a menu principal");
                         System.out.println("---------Ingresar Opcion: ");
                         int OP_Ventas_P1 = ingreso.nextInt();
@@ -303,7 +311,7 @@ if (!archivo.exists()) {
                             case 1:
                                 Deque<String> Cola_salas = new ArrayDeque<String>();
                                 System.out.println("------Ventas de Tickets------"); 
-                                System.out.println("Ingrese codigo de empleado"); 
+                                System.out.println("Ingrese codigo de empleado de ventas [V], Administracion [A] o Mantenimiento [M]"); 
                                 System.out.println("*******************************"); 
                                 EmpleadosActuales();
                                 int op_cod_empleado = ingreso.nextInt();
@@ -315,7 +323,6 @@ if (!archivo.exists()) {
                                     System.out.println("Ingrese opcion de pelicula:");
                                     op_cod_pelicula = ingreso.nextInt();
                                     System.out.println("Las opciones de horario para la pelcula son: ");
-//                                    texto="Sala1 P1 N 150 0 60 90 120";//2D, 3D y 4D
                                     FileReader tr;
                                     String var;
                                     tr = new FileReader("C:\\ProyectoCine\\catalogoSalas.txt");
@@ -349,24 +356,45 @@ if (!archivo.exists()) {
                                 System.out.println("------Comprar membresia:");
                                 System.out.println("1. Si :");
                                 System.out.println("2. No :");
+                                System.out.println("---------Ingresar Opcion: ");
                                 int op_membresia = ingreso.nextInt();
                                 if(op_membresia==1){
                                     System.out.println("Costo de membresia: Q 45.00");
+                                    System.out.println("Cantidad de membresias");
+                                    System.out.println("---------Ingresar Opcion: ");
+                                    cant_membresias = ingreso.nextInt();
                                     int mem =  45;
-                                    tmembresia=(float) 2.25;
+                                    tmembresia=cant_membresias*2.25;
                                 }
-                                 
-                                 tpaquete=0;
+                                System.out.println("------Comprar Paquete de tickets:");
+                                System.out.println("1. Si :");
+                                System.out.println("2. No :");
+                                System.out.println("---------Ingresar Opcion: ");
+                                int op_pTickets = ingreso.nextInt();
+                                if(op_pTickets==1){
+                                    System.out.println("Costo de paquete: Q 2500.00");
+                                    System.out.println("Cantidad de membresias");
+                                    System.out.println("---------Ingresar Opcion: ");
+                                    cant_paquetes = ingreso.nextInt();
+                                    tpaquete=cant_paquetes*62.5;
+                                }
+                                ActualizarEmpleado(cant_membresias, cant_paquetes, op_cod_empleado, tpaquete, tmembresia);
+                                String [] parts = temporal.split(" ");
+                                String parte12 = parts[11];
+                                double cant6=Double.parseDouble(parte12);
+                                double Subtotal = tmembresia+tpaquete+cant6;
                                 System.out.println("_______________________");
+                                System.out.println("Codigo de Usuario: "+op_cod_empleado );
                                 System.out.println("Recibo: ");
                                 System.out.println(temporal);
+                                System.out.println("Membresias: " );
+                                System.out.println("Cantidad: "+cant_membresias+" Total: "+tmembresia );
+                                System.out.println("Paquetes de Tickets: " );
+                                System.out.println("Cantidad: "+cant_paquetes+" Total: "+tpaquete );
+                                System.out.println("Total: "+Subtotal);
                                 System.out.println("_______________________");
-
                                 break;                            
-                            case 2:
-                            case 3: 
                             case 4:
-
                         }
                         break;
                     case 2:
@@ -375,7 +403,6 @@ if (!archivo.exists()) {
                     case 5:
                         break;
                 }
-   
             break;
             case 3:
                 System.exit(0);
@@ -432,21 +459,21 @@ if (!archivo.exists()) {
                                     total = OP_cant_ticktes*60;
                                     ActualizarPeliculas(op_cod_pelicula, total);
                                     System.out.println("Su total es "+total);
-                                     result =part1+" *Cantidad de entradas: "+OP_cant_ticktes+" *Tipo funcion: 2D"+" *Total a pagar:"+total;
+                                     result =part1+" *Cantidad de entradas: "+OP_cant_ticktes+" *Tipo funcion: 2D"+" *Total a pagar :"+total;
                                     ActualizarSalas(OP_tipo,OP_cant_ticktes);
                                      break;
                                 case 2:
                                     total = OP_cant_ticktes*90;
                                     ActualizarPeliculas(op_cod_pelicula, total);
                                     System.out.println("Su total es "+total);
-                                     result =part1+" *Cantidad de entradas: "+OP_cant_ticktes+" *Tipo funcion: 3D"+" *Total a pagar:"+total;
+                                     result =part1+" *Cantidad de entradas: "+OP_cant_ticktes+" *Tipo funcion: 3D"+" *Total a pagar :"+total;
                                      ActualizarSalas(OP_tipo,OP_cant_ticktes);
                                     break;
                                 case 3:
                                     total = OP_cant_ticktes*120;
                                     ActualizarPeliculas(op_cod_pelicula, total);
                                     System.out.println("Su total es "+total);
-                                     result =part1+" *Cantidad de entradas: "+OP_cant_ticktes+" *Tipo funcion: 4D"+" *Total a pagar:"+total;
+                                     result =part1+" *Cantidad de entradas: "+OP_cant_ticktes+" *Tipo funcion: 4D"+" *Total a pagar :"+total;
                                     ActualizarSalas(OP_tipo,OP_cant_ticktes);
                                      break;
                             }  
@@ -463,8 +490,8 @@ if (!archivo.exists()) {
                                     total = OP_cant_ticktest*60;
                                     
                                     System.out.println("Su total es "+total);
-                                     result =part1+" *Cantidad de entradas: "+OP_cant_ticktest+" *Tipo funcion: 2D"+" *Total a pagar:"+total;
-                                    System.out.println(OP_tipo+"  "+OP_cant_ticktest);//<------------------------
+                                     result =part1+" *Cantidad de entradas: "+OP_cant_ticktest+" *Tipo funcion: 2D"+" *Total a pagar :"+total;
+                                    System.out.println(OP_tipo+"  "+OP_cant_ticktest);
                                      ActualizarSalas(OP_tipo, OP_cant_ticktest);
                                     ActualizarPeliculas(op_cod_pelicula, total);
                                      break;
@@ -472,7 +499,7 @@ if (!archivo.exists()) {
                                     total = OP_cant_ticktest*90;
                                     System.out.println("Su total es "+total);
                                     ActualizarPeliculas(op_cod_pelicula, total);
-                                     result =part1+" *Cantidad de entradas: "+OP_cant_ticktest+" *Tipo funcion: 3D"+" *Total a pagar:"+total;
+                                     result =part1+" *Cantidad de entradas: "+OP_cant_ticktest+" *Tipo funcion: 3D"+" *Total a pagar :"+total;
                                    ActualizarSalas(OP_tipo,OP_cant_ticktest);
                                      break;
                             }
@@ -483,12 +510,10 @@ if (!archivo.exists()) {
                             total = OP_cant_ticktest*60;
                             ActualizarPeliculas(op_cod_pelicula, total);
                             System.out.println("Su total es "+total);
-                            result =part1+" *Cantidad de entradas: "+OP_cant_ticktest+" *Tipo funcion: 2D"+" *Total a pagar:"+total;
+                            result =part1+" *Cantidad de entradas: "+OP_cant_ticktest+" *Tipo funcion: 2D"+" *Total a pagar: "+total;
                             ActualizarSalas(OP_tipo,OP_cant_ticktest);
                     }
 
-
-            
             }
                         }
         } catch(FileNotFoundException ex){}
@@ -526,33 +551,28 @@ if (!archivo.exists()) {
     static void ActualizarSistema() throws IOException{
         Scanner ingreso = new Scanner(System.in);
         Deque<String> Cola_peliculas = new ArrayDeque<String>();
-//        int OP_Cine = ingreso.nextInt();
         int eliminarP =0;
         String linea;
         FileReader cr;
         try {
             cr = new FileReader("C:\\ProyectoCine\\catalogoPeliculas.txt");
             BufferedReader br = new BufferedReader(cr);
-//            System.out.println("Lista actual de peliculas");
+
             while((linea = br.readLine()) != null){
                 String [] parts = linea.split(" ");
                 String part1 = parts[0];
                 String part2 = parts[1];
                 Cola_peliculas.addLast(linea);
-//                System.out.println(part1+"   "+part2);
+
             }
             } catch (FileNotFoundException ex) {
             Logger.getLogger(Proyecto_cine.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-//            System.out.println("Ingresar codigo de pelicula a eliminar: ");
-//            eliminarP = ingreso.nextInt();          
-            
-            
             for(String elemento: Cola_peliculas){
                 String [] parts = elemento.split(" ");
                 String parte1 = parts[0];
-//                int cant1=Integer.parseInt(parte1);
+
                 String parte2 = parts[1];
                 String parte3 = parts[2];
                 String parte4 = parts[3];
@@ -569,20 +589,12 @@ if (!archivo.exists()) {
                 } else{
                 
                 }
-                
-                
-//                if(cant1==eliminarP){
-//                    Cola_peliculas.remove(elemento);
-//            }
             }
             Archivos.crearArchivo("C:\\ProyectoCine\\catalogoPeliculas.txt");
             for(String elementos: Cola_peliculas){
                 Archivos.EscribirArchivo("C:\\ProyectoCine\\catalogoPeliculas.txt", elementos);
                  System.out.println(elementos);                
             }
-            
-            
-
     }
         //Funcion para crear peliculas iniciales
     public static void CrearPeliculas(){
@@ -670,10 +682,30 @@ if (!archivo.exists()) {
             } catch (FileNotFoundException ex) {
             Logger.getLogger(Proyecto_cine.class.getName()).log(Level.SEVERE, null, ex);
         }
-         
-													 
-							
+             }						
+    
+            //Ver REPORTE peliculas actuales
+    static void ReporteeliculasActuales() throws IOException{								  
+        String linea;
+        FileReader cr;
+         try {
+            cr = new FileReader("C:\\ProyectoCine\\catalogoPeliculas.txt");
+            BufferedReader br = new BufferedReader(cr);
+            System.out.println("Lista actual de peliculas");
+            while((linea = br.readLine()) != null){			 
+                String [] parts = linea.split(" ");
+                String part1 = parts[0];
+                String part2 = parts[1]; 
+                String part4 = parts[3];
+                int cant4=Integer.parseInt(part4);
+                cant4=(cant4/60);
+                System.out.println(part1+" "+part2+" "+cant4);
+            }
+            } catch (FileNotFoundException ex) {
+            Logger.getLogger(Proyecto_cine.class.getName()).log(Level.SEVERE, null, ex);
+        }						
     }
+
             //Ver Salas actuales
     static void SalasActuales() throws IOException{								  
         String linea;
@@ -696,7 +728,7 @@ if (!archivo.exists()) {
         }
     }
 	
-             //Ver empleados actuales
+            //Ver empleados actuales
     static void EmpleadosActuales() throws IOException{								  
         String lineat;
         FileReader cr;
@@ -709,15 +741,71 @@ if (!archivo.exists()) {
                 String part1 = parts[0];
                 String part2 = parts[1]; 
                 String part4 = parts[3]; 
-
-                    System.out.println(part1+" "+part2+" "+part4);
-
-                
+                System.out.println(part1+" "+part2+" "+part4);   
             }
             } catch (FileNotFoundException ex) {
             Logger.getLogger(Proyecto_cine.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+                 //Ver REPORTE VENTAS actuales
+    static void ReporteEmpleadosActuales() throws IOException{								  
+        String lineat;
+        FileReader cr;
+        char c;
+         try {
+            cr = new FileReader("C:\\ProyectoCine\\catalogoEmpleados.txt");
+            BufferedReader br = new BufferedReader(cr);
+            System.out.println("Lista actual Empleados");
+            while((lineat = br.readLine()) != null){			 
+                String [] parts = lineat.split(" ");
+                String part1 = parts[0];
+                String part2 = parts[1];
+                c = part2.charAt(0);
+                String part3 = parts[2];
+                String part4 = parts[3]; 
+                if(c=='V'){
+                    System.out.println(part1+" "+part4+" Q "+part3);
+                }         
+            }
+            } catch (FileNotFoundException ex) {
+            Logger.getLogger(Proyecto_cine.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+                     //Ver REPORTE PLANILLA CINE
+    static void ReporteEmpleadosTOTAL() throws IOException{								  
+        String lineat;
+        FileReader cr;
+        double TOTAL=0;
+        char c;
+         try {
+            cr = new FileReader("C:\\ProyectoCine\\catalogoEmpleados.txt");
+            BufferedReader br = new BufferedReader(cr);
+            System.out.println("Lista actual Empleados");
+            while((lineat = br.readLine()) != null){			 
+                String [] parts = lineat.split(" ");
+                String part1 = parts[0];
+                String part2 = parts[1];
+                c = part2.charAt(0);
+                String part3 = parts[2];
+                double cant3=Double.parseDouble(part3);
+                String part4 = parts[3]; 
+                TOTAL=TOTAL+cant3;
+                if(c=='A'){
+                    System.out.println("-Administracio Codigo:"+part1+" "+part4+" Q "+part3);
+                }else if(c=='V'){
+                    System.out.println("-Ventas Codigo:"+part1+" "+part4+" Q "+part3);
+                }else if(c=='M'){
+                    System.out.println("-Mantenimiento Codigo:"+part1+" "+part4+" Q "+part3);
+                }
+            }
+            System.out.println("***Total de planilla Q "+TOTAL);
+            } catch (FileNotFoundException ex) {
+            Logger.getLogger(Proyecto_cine.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    
     
    //Funcion para realizar Ventas aleatorias
    static void VentasAleatorias(){
@@ -745,10 +833,6 @@ if (!archivo.exists()) {
     } catch (IOException | NumberFormatException e) {
         e.printStackTrace();
     }
-  
-       
-      
-       
         String[][] matriz2= new String[100][15];
       int No_Sala=0;
 //peliculas disponibles
@@ -803,7 +887,6 @@ if (!archivo.exists()) {
         e.printStackTrace();
     }
 ///caja1
-       
        Random digito = new Random();
        int ContC1=0;
        int ContC2=0;
@@ -819,21 +902,17 @@ if (!archivo.exists()) {
           int N = digito.nextInt(10)+1;   
           int sala=digito.nextInt(8)+1; 
           if(sala==1){}
-          
           Pelicula=digito.nextInt(No_pelicula)+1;
-          
+
           ContPeli[Pelicula]=ContPeli[Pelicula]+ContPeli[Pelicula];
-          
           ContC1=ContC1+N;  
           
           if(matriz[i][1].equals("Masculino")){
           hombre=hombre+1;                
           }
           if(matriz[i][1].equals("Femenino")){
-          mujer=mujer+1;                
-          
+          mujer=mujer+1;                    
           }
-          
           }
        for(int i=400;i<800;i++){
           int N = digito.nextInt(10)+1;   
@@ -845,7 +924,6 @@ if (!archivo.exists()) {
           }
           if(matriz[i][1].equals("Femenino")){
           mujer=mujer+1;                
-          
           }
        }
        for(int i=800;i<1200;i++){
@@ -859,7 +937,6 @@ if (!archivo.exists()) {
           if(matriz[i][1].equals("Femenino")){
           mujer=mujer+1;                
           }
-       
        }
        for(int i=1200;i<1600;i++){
           int N = digito.nextInt(10)+1;   
@@ -871,7 +948,6 @@ if (!archivo.exists()) {
           }
           if(matriz[i][1].equals("Femenino")){
           mujer=mujer+1;                
-          
           }
        }
        for(int i=1600;i<2000;i++){
@@ -884,9 +960,7 @@ if (!archivo.exists()) {
           }
           if(matriz[i][1].equals("Femenino")){
           mujer=mujer+1;                
-          }
-         
-               
+          }  
        }
           int total=mujer+hombre;
           int porchombre=(hombre*100)/total;
@@ -897,7 +971,7 @@ if (!archivo.exists()) {
  
 }
    //Actualizar salas
-public static void ActualizarSalas(int fila, int cantidad) throws IOException{ //2,3
+public static void ActualizarSalas(int fila, int cantidad) throws IOException{ 
         Deque<String> Cola_Salas = new ArrayDeque<String>();
 						 
         String linea;
@@ -932,8 +1006,7 @@ public static void ActualizarSalas(int fila, int cantidad) throws IOException{ /
             
             Archivos.crearArchivo("C:\\ProyectoCine\\catalogoSalas.txt");
             for(String elementos: Cola_Salas){
-                Archivos.EscribirArchivo("C:\\ProyectoCine\\catalogoSalas.txt", elementos);
-//                               
+                Archivos.EscribirArchivo("C:\\ProyectoCine\\catalogoSalas.txt", elementos);                   
             }
         } catch(Exception  ex){
             System.out.println("Exception occurred"+ ex.getMessage());
@@ -968,20 +1041,19 @@ public static void ActualizarPeliculas(int op_cod_pelicula, int total) throws IO
         }
         Archivos.crearArchivo("C:\\ProyectoCine\\catalogoPeliculas.txt");
             for(String elementos: Cola_Peliculas){
-                Archivos.EscribirArchivo("C:\\ProyectoCine\\catalogoPeliculas.txt", elementos);
-               
+                Archivos.EscribirArchivo("C:\\ProyectoCine\\catalogoPeliculas.txt", elementos);             
             }
         } catch(FileNotFoundException ex){
             System.out.println("Exception occurred"+ ex.getMessage());
         }
-
-
     }
 
 
-public static void Actualizarmpleado(int op_cod_empleado, int total, int paquete, int membresia) throws IOException{
+//ActualizarEmpleado(op_cod_empleado, tpaquete, tmembresia);
+
+public static void ActualizarEmpleado(int cant_membresias, int cant_paquetes ,int op_cod_empleado,  double tpaquete, double tmembresia) throws IOException{
         Deque<String> Cola_Empleados = new ArrayDeque<String>();
-//        texto="6 V 3500 Sebastian_Hernandez 0 0";
+												   
         String linea="";
         FileReader cr;
         try {
@@ -995,14 +1067,17 @@ public static void Actualizarmpleado(int op_cod_empleado, int total, int paquete
         String parte1 = parts[0];
         int cant1=Integer.parseInt(parte1);
         String parte2 = parts[1];
-        String parte3 = parts[2];//Sueldo
-        String parte4 = parts[3];//Nombre
-        String parte5 = parts[4];//Paquete
-        String parte6 = parts[5];//Membresia
+        String parte3 = parts[2];
+        double cant3=Double.parseDouble(parte3);
+        String parte4 = parts[3];
+        String parte5 = parts[4];
+        int cant5=Integer.parseInt(parte5);
+        String parte6 = parts[5];
+        int cant6=Integer.parseInt(parte6);
         if(op_cod_empleado==cant1){
-            parte3=parte3+(total);
-            parte5=parte5+paquete;
-            parte6=parte6+membresia;
+            cant3= (cant3+tpaquete+tmembresia);
+            cant5=cant5+cant_paquetes;
+            cant6=cant6+cant_membresias;
             Cola_Empleados.remove(elemento);
             Cola_Empleados.addFirst(cant1+" "+parte2+" "+parte3+" "+parte4+" "+parte5+" "+parte6);
             break;
@@ -1016,9 +1091,6 @@ public static void Actualizarmpleado(int op_cod_empleado, int total, int paquete
         } catch(FileNotFoundException ex){
             System.out.println("Exception occurred"+ ex.getMessage());
         }
-
-			 
-
     }
     
 }
