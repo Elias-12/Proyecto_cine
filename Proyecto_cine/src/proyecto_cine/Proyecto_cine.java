@@ -938,8 +938,6 @@ public static void ActualizarSalas(int fila, int cantidad) throws IOException{ /
         } catch(Exception  ex){
             System.out.println("Exception occurred"+ ex.getMessage());
         }
-
-
     }
 public static void ActualizarPeliculas(int op_cod_pelicula, int total) throws IOException{
         Deque<String> Cola_Peliculas = new ArrayDeque<String>();
